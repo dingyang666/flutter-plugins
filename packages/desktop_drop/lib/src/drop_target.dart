@@ -156,17 +156,17 @@ class _DropTargetState extends State<DropTarget> {
     } else if (event is DropDoneEvent &&
         (_status != _DragTargetStatus.idle || Platform.isLinux) &&
         inBounds) {
+      widget.onDragDone?.call(DropDoneDetails(
+        files: event.files,
+        localPosition: position,
+        globalPosition: globalPosition,
+      ));
       _updateStatus(
         _DragTargetStatus.idle,
         debugRequiredStatus: false,
         globalLocation: globalPosition,
         localLocation: position,
       );
-      widget.onDragDone?.call(DropDoneDetails(
-        files: event.files,
-        localPosition: position,
-        globalPosition: globalPosition,
-      ));
     }
   }
 
